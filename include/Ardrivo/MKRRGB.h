@@ -19,7 +19,9 @@
 #ifndef MKRRGB_H
 #define MKRRGB_H
 
-
+/* check how include Arduinographics.h correctly
+ * start implementing this class in src/Ardrivo
+ */
 #include <cstddef>
 #include <ArduinoGraphics.h>
 #include "SMCE_dll.hpp"
