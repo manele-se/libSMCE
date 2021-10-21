@@ -23,7 +23,7 @@
  * start implementing this class in src/Ardrivo
  */
 #include <cstddef>
-#include <ArduinoGraphics.h>
+#include "ArduinoGraphics.h"
 #include "SMCE_dll.hpp"
 
 #define RGB_MATRIX_WIDTH  12
