@@ -19,8 +19,14 @@
 
 #include "Font.h"
 
+#ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wgnu-binary-literal"
+#endif
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-pedantic"
+#endif
 
 const struct Font Font_5x7 = {
   5,
@@ -2003,5 +2009,9 @@ const struct Font Font_5x7 = {
   }
 };
 
-
+#ifdef __clang__
 #pragma clang diagnostic pop
+#endif
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
