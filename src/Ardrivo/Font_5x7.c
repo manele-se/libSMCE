@@ -17,6 +17,8 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+// clang-format off
+
 #include "Font.h"
 
 const struct Font Font_5x7 = {
@@ -1999,3 +2001,5 @@ const struct Font Font_5x7 = {
     },
   }
 };
+
+// clang-format on

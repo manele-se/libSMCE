@@ -17,6 +17,8 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+// clang-format off
+
 #ifndef _FONT_H
 #define _FONT_H
 
@@ -30,3 +32,5 @@ struct Font {
 };
 
 #endif
+
+// clang-format on

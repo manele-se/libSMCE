@@ -15,6 +15,8 @@
  *
  */
 
+// clang-format off
+
 #ifndef MKRRGB_H
 #define MKRRGB_H
 
@@ -50,3 +52,5 @@ class SMCE__DLL_RT_API RGBMatrixClass : public ArduinoGraphics {
 extern RGBMatrixClass MATRIX;
 
 #endif
+
+// clang-format on

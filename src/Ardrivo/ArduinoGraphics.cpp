@@ -17,6 +17,8 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+// clang-format off
+
 #include "ArduinoGraphics.h"
 
 #define COLOR_R(color) (uint8_t(color >> 16))
@@ -426,3 +428,5 @@ void ArduinoGraphics::lineHigh(int x1, int y1, int x2, int y2) {
         D += 2 * dx;
     }
 }
+
+// clang-format on
