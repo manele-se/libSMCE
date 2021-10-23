@@ -17,6 +17,8 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+// clang-format off
+
 #include <stddef.h>
 
 #include "Image.h"
@@ -72,3 +74,5 @@ Image::operator bool() const
 {
   return (_encoding != ENCODING_NONE && _data != NULL && _width > 0 && _height > 0);
 }
+
+// clang-format on
