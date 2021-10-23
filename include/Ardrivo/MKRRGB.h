@@ -1,6 +1,5 @@
 /*
  *  MKRRGB.h
- *  
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,26 +25,26 @@
 #include "ArduinoGraphics.h"
 #include "SMCE_dll.hpp"
 
-#define RGB_MATRIX_WIDTH  12
+#define RGB_MATRIX_WIDTH 12
 #define RGB_MATRIX_HEIGHT 7
 
-class SMCE__DLL_RT_API RGBMatrixClass: public ArduinoGraphics {
-public:
-  RGBMatrixClass();
-  virtual ~RGBMatrixClass();
+class SMCE__DLL_RT_API RGBMatrixClass : public ArduinoGraphics {
+  public:
+    RGBMatrixClass();
+    virtual ~RGBMatrixClass();
 
-  int begin();
-  void end();
+    int begin();
+    void end();
 
-  void brightness(uint8_t brightness);
+    void brightness(uint8_t brightness);
 
-  virtual void beginDraw();
-  virtual void endDraw();
+    virtual void beginDraw();
+    virtual void endDraw();
 
-  virtual void set(int x, int y, uint8_t r, uint8_t g, uint8_t b);
+    virtual void set(int x, int y, uint8_t r, uint8_t g, uint8_t b);
 
-private:
-  uint8_t _buffer[4 + 4 * RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT + ((RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT + 15) / 16)];
+  private:
+    uint8_t _buffer[4 + 4 * RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT + ((RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT + 15) / 16)];
 };
 
 extern RGBMatrixClass MATRIX;
