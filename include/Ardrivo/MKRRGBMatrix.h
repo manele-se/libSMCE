@@ -17,8 +17,8 @@
 
 // clang-format off
 
-#ifndef MKRRGB_H
-#define MKRRGB_H
+#ifndef MKRRGBMatrix_H
+#define MKRRGBMatrix_H
 
 /* check how include Arduinographics.h correctly
  * start implementing this class in src/Ardrivo
@@ -38,7 +38,7 @@ class SMCE__DLL_RT_API RGBMatrixClass : public ArduinoGraphics {
     int begin();
     void end();
 
-    void brightness(uint8_t brightness);
+    void brightness(uint8_t brightness) { _brightness = brightness; }
 
     virtual void beginDraw();
     virtual void endDraw();
@@ -46,7 +46,8 @@ class SMCE__DLL_RT_API RGBMatrixClass : public ArduinoGraphics {
     virtual void set(int x, int y, uint8_t r, uint8_t g, uint8_t b);
 
   private:
-    uint8_t _buffer[4 + 4 * RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT + ((RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT + 15) / 16)];
+    uint8_t _buffer[RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT * 3];
+    uint8_t _brightness;
 };
 
 extern RGBMatrixClass MATRIX;
