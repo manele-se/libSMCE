@@ -34,8 +34,36 @@ int RGBMatrixClass::begin() {
     return 1;
 }
 
-void RGBMatrixClass::end() {
-    ArduinoGraphics::end();
+void RGBMatrixClass::end() { ArduinoGraphics::end(); }
+
+void RGBMatrixClass::brightness(uint8_t brightness) {
+    _brightness = brightness;
+    writeOut();
 }
 
-// Fortsätt här: https://github.com/arduino-libraries/Arduino_MKRRGB/blob/master/src/MKRRGBMatrix.cpp
+void RGBMatrixClass::beginDraw() { ArduinoGraphics::beginDraw(); }
+
+void RGBMatrixClass::endDraw() {
+    ArduinoGraphics::endDraw();
+    writeOut();
+}
+
+void RGBMatrixClass::set(int x, int y, uint8_t r, uint8_t g, uint8_t b) {
+    if (x < 0 || x >= RGB_MATRIX_WIDTH || y < 0 || y >= RGB_MATRIX_HEIGHT)
+        return;
+
+    std::byte* target = &buffer[(y * RGB_MATRIX_WIDTH + x) * 3];
+    *target++ = r;
+    *target++ = g;
+    *target++ = b;
+}
+
+void RGBMatrixClass::writeOut() {
+    std::byte temp[sizeof(buffer)];
+    for (int i = 0; i < sizeof(buffer)++ i) {
+        temp[i] = (std::byte)(buffer[i] = _brightness / 255);
+    }
+    // TODO: Write to framebuffer
+}
+
+RGBMatrixClass MATRIX;
