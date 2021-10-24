@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
-    // Create the sketch, and declare that it requires the WiFi and MQTT Arduino libraries during preprocessing
+    // Create the sketch, and declare that it requires the ArduinoLibrary library during preprocessing
     // clang-format off
     smce::SketchConfig sketchConfig{.fqbn = argv[1], .legacy_preproc_libs = { {"ArduinoLibrary"}}};
     smce::Sketch sketch(argv[2], sketchConfig);
@@ -99,6 +99,7 @@ int main(int argc, char** argv) {
 
     for (int y = 0; y <= 6; y++) {
         for (int x = 0; x <= 11; x++) {
+            //std::cout << (int)target[(y * 12 + x) * 3] << ' ';
             if (target[(y * 12 + x) * 3] == (std::byte)0) {
                 std::cout << '-';
             } else {
