@@ -111,7 +111,7 @@ if (SMCE_ARDRIVO_OV767X)
   target_sources (Ardrivo PRIVATE include/Ardrivo/OV767X.h src/Ardrivo/OV767X.cpp)
 endif ()
 if (SMCE_ARDRIVO_MKRRGB)
-  target_sources (Ardrivo PRIVATE include/Ardrivo/MKRRGBMatrix.h src/Ardrivo/MKRRGBMatrix.cpp)
+  target_sources (Ardrivo PRIVATE include/Ardrivo/Arduino_MKRRGB.h include/Ardrivo/MKRRGBMatrix.h src/Ardrivo/MKRRGBMatrix.cpp)
 endif ()
 
 if (NOT MSVC)

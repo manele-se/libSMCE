@@ -18,9 +18,10 @@
 #ifndef MKRRGBMatrix_H
 #define MKRRGBMatrix_H
 
-/* check how include Arduinographics.h correctly
- * start implementing this class in src/Ardrivo
- */
+// TODO: check how include Arduinographics.h correctly
+
+// Most of this is copied from https://github.com/arduino-libraries/Arduino_MKRRGB/blob/master/src/MKRRGBMatrix.h
+
 #include <cstddef>
 #include "ArduinoGraphics.h"
 #include "SMCE_dll.hpp"

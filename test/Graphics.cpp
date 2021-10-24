@@ -29,12 +29,26 @@
 using namespace std::literals;
 constexpr std::byte operator""_b(unsigned long long c) noexcept { return static_cast<std::byte>(c); }
 
+// TODO: Set up a library patch
+// Look in smce-gd/project/share/library_patches to see how to do this correctly
+// Also look in libSMCE/test/patches
+
 TEST_CASE("Arduino_MKRRGB", "[Graphics]") {
     smce::Toolchain tc{SMCE_PATH};
     REQUIRE(!tc.check_suitable_environment());
-    smce::Sketch sk{SKETCHES_PATH "mkrrgb", {.fqbn = "arduino:avr:nano"}};
+    smce::Sketch sk{SKETCHES_PATH "mkrrgb", {
+        .fqbn = "arduino:avr:nano",
+        .plugins={
+            {"ArduinoGraphics", "1.0.1"},
+            {"Arduino_MKRRGB", "1.0.0"}
+        }
+    }};
     const auto ec = tc.compile(sk);
     if (ec)
         std::cerr << tc.build_log().second;
     REQUIRE_FALSE(ec);
+
+    // TODO:
+    // Start the board with one frame buffer
+    // Wait a second, then check the pixels in the frame buffer
 }

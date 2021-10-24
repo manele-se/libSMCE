@@ -30,6 +30,9 @@ RGBMatrixClass::RGBMatrixClass() : ArduinoGraphics(RGB_MATRIX_WIDTH, RGB_MATRIX_
 
 RGBMatrixClass::~RGBMatrixClass() {}
 
+// This method must be called before any drawing can be done
+// This implementation checks and configures an SMCE frame buffer, and
+// clears the buffer, and sets the brightness to 127 (half brightness)
 int RGBMatrixClass::begin() {
     const auto error = [=](const char* msg) {
         std::cerr << "ERROR: RGBMatrixClass::begin(): " << msg << std::endl;
@@ -60,6 +63,8 @@ int RGBMatrixClass::begin() {
     return 1;
 }
 
+// This method can be called after the sketch is done using the MKRRGB shield
+// This implementation resets the SMCE frame buffer
 void RGBMatrixClass::end() {
     ArduinoGraphics::end();
 
@@ -70,31 +75,43 @@ void RGBMatrixClass::end() {
     fb.set_freq(0);
 }
 
+// This method sets the brightness (allowed values: between 0 and 255)
+// This implementation calls writeOut to update the SMCE framebuffer
 void RGBMatrixClass::brightness(uint8_t brightness) {
     _brightness = brightness;
     writeOut();
 }
 
+// This method must be called before each "block" of drawing to a screen
 void RGBMatrixClass::beginDraw() { ArduinoGraphics::beginDraw(); }
 
+// This method must be called after each "block" of drawing to a screen, so that
+// the screen can update with the resulting graphics.
+// This implementation calls writeOut to update the SMCE framebuffer
 void RGBMatrixClass::endDraw() {
     ArduinoGraphics::endDraw();
     writeOut();
 }
 
+// This method sets one pixel in the internal buffer to a new color value.
+// This implementation uses the _buffer variable, which has 3 bytes per pixel.
 void RGBMatrixClass::set(int x, int y, uint8_t r, uint8_t g, uint8_t b) {
     if (x < 0 || x >= RGB_MATRIX_WIDTH || y < 0 || y >= RGB_MATRIX_HEIGHT)
         return;
 
+    // Find where in memory to start writing.
     uint8_t* target = &_buffer[(y * RGB_MATRIX_WIDTH + x) * 3];
     *target++ = r;
     *target++ = g;
     *target++ = b;
 }
 
+// This method is specific to the SMCE emulation.
+// It multiplies the written pixel color values with the current
+// brightness, and writes to the SMCE frame buffer.
 void RGBMatrixClass::writeOut() {
     std::byte temp[sizeof(_buffer)];
-    for (int i = 0; i < sizeof(_buffer); i++) {
+    for (std::size_t i = 0; i < sizeof(_buffer); i++) {
         temp[i] = (std::byte)(_buffer[i] * _brightness / 255);
     }
 
