@@ -58,10 +58,8 @@ int main(int argc, char** argv) {
 
     // Create the sketch, and declare that it requires the WiFi and MQTT Arduino libraries during preprocessing
     // clang-format off
-    smce::Sketch sketch{argv[2], {
-          .fqbn = argv[1],
-          .legacy_preproc_libs = { {"ArduinoLibrary"} }
-    }};
+    smce::SketchConfig sketchConfig{.fqbn = argv[1], .legacy_preproc_libs = { {"ArduinoLibrary"}}};
+    smce::Sketch sketch(argv[2], sketchConfig);
     // // clang-format on
 
     std::cout << "Compiling..." << std::endl;

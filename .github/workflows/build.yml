@@ -380,6 +380,7 @@ jobs:
             -DSMCE_ARDRIVO_MQTT=On \
             -DSMCE_MOSQUITTO_LINKING=SHARED \
             -DSMCE_ARDRIVO_OV767X=On \
+            -DSMCE_ARDRIVO_MKRRGB=On \
             -S ./ -B ./build
       - name: CMake build
         run: cmake --build ./build

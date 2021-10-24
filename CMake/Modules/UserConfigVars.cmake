@@ -58,3 +58,5 @@ else ()
 endif ()
 
 option (SMCE_ARDRIVO_OV767X "Set to \"Off\" to disable OV767X integration in Ardrivo" On)
+
+option (SMCE_ARDRIVO_MKRRGB "Set to \"Off\" to disable MKRRGB integration in Ardrivo" On)

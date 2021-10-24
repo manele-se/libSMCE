@@ -1,7 +1,6 @@
 #include <Arduino_MKRRGB.h>
 
 void setup() {
-    MATRIX.begin();
     MATRIX.beginDraw();
     MATRIX.background(0, 0, 0);
     MATRIX.clear();
@@ -14,7 +13,6 @@ void setup() {
     MATRIX.set(7, 4, 255, 255, 255);
     MATRIX.set(3, 5, 255, 255, 255);
     MATRIX.set(8, 5, 255, 255, 255);
-    MATRIX.endDraw();
 }
 
 void loop() {}

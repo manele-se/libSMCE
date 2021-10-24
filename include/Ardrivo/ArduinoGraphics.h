@@ -34,7 +34,7 @@ enum
     SCROLL_DOWN
 };
 
-class ArduinoGraphics : public Print {
+class SMCE__DLL_RT_API ArduinoGraphics : public Print {
   public:
     ArduinoGraphics(int width, int height);
     virtual ~ArduinoGraphics();
@@ -116,7 +116,7 @@ class ArduinoGraphics : public Print {
     unsigned long _textScrollSpeed;
 };
 
-extern const struct Font Font_4x6;
-extern const struct Font Font_5x7;
+extern "C" const struct Font Font_4x6;
+extern "C" const struct Font Font_5x7;
 
 #endif
