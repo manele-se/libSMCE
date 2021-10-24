@@ -17,8 +17,6 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// clang-format off
-
 #ifndef _FONT_H
 #define _FONT_H
 
@@ -26,11 +24,9 @@
 #include <stdint.h>
 
 struct Font {
-  const int width;
-  const int height;
-  const uint8_t** data;
+    const int width;
+    const int height;
+    const uint8_t** data;
 };
 
 #endif
-
-// clang-format on

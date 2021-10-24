@@ -21,22 +21,21 @@
 extern struct Font Font_5x7;
 
 int RGBMatrixClass::begin() {
-  if (!ArduinoGraphics::begin()) {
-    return 0;
-  }
+    if (!ArduinoGraphics::begin()) {
+        return 0;
+    }
 
-  textFont(Font_5x7);
+    textFont(Font_5x7);
 
-  memset(buffer, 0x00, RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT * 3);
+    memset(buffer, 0x00, RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT * 3);
 
-  brightness(127);
+    brightness(127);
 
-  return 1;
+    return 1;
 }
 
 void RGBMatrixClass::end() {
-  ArduinoGraphics::end();
+    ArduinoGraphics::end();
 }
 
 // Fortsätt här: https://github.com/arduino-libraries/Arduino_MKRRGB/blob/master/src/MKRRGBMatrix.cpp
-
