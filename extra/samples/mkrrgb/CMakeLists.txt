@@ -18,8 +18,10 @@
 cmake_minimum_required (VERSION 3.16)
 project (mkrrgb)
 
+message(STATUS "CMAKE_CURRENT_SOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}")
+
 find_package (Threads REQUIRED)
-find_package (SMCE REQUIRED)
+find_package (SMCE REQUIRED PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../)
 
 set (SMCE_RES "${PROJECT_BINARY_DIR}/SMCE_Res")
 
@@ -29,3 +31,5 @@ target_compile_definitions (mkrrgb PRIVATE "SMCE_RESOURCES_DIR=\"${SMCE_RES}\"")
 file (MAKE_DIRECTORY "${SMCE_RES}")
 execute_process (COMMAND "${CMAKE_COMMAND}" -E tar xf "${SMCE_RESOURCES_ARK}"
                  WORKING_DIRECTORY "${SMCE_RES}")
+file (COPY sketches DESTINATION .)
+file (COPY library_patches DESTINATION .)

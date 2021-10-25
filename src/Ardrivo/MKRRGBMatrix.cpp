@@ -34,6 +34,7 @@ RGBMatrixClass::~RGBMatrixClass() {}
 // This implementation checks and configures an SMCE frame buffer, and
 // clears the buffer, and sets the brightness to 127 (half brightness)
 int RGBMatrixClass::begin() {
+    std::cout << "RGBMatrixClass::begin" << std::endl;
     const auto error = [=](const char* msg) {
         std::cerr << "ERROR: RGBMatrixClass::begin(): " << msg << std::endl;
         return 0;
@@ -96,9 +97,9 @@ void RGBMatrixClass::endDraw() {
 // This method sets one pixel in the internal buffer to a new color value.
 // This implementation uses the _buffer variable, which has 3 bytes per pixel.
 void RGBMatrixClass::set(int x, int y, uint8_t r, uint8_t g, uint8_t b) {
+    std::cout << x << ',' << y << ':' << r << ',' << g << ',' << b << std::endl;
     if (x < 0 || x >= RGB_MATRIX_WIDTH || y < 0 || y >= RGB_MATRIX_HEIGHT)
         return;
-
     // Find where in memory to start writing.
     uint8_t* target = &_buffer[(y * RGB_MATRIX_WIDTH + x) * 3];
     *target++ = r;

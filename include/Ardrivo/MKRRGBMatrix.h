@@ -34,8 +34,6 @@ class SMCE__DLL_RT_API RGBMatrixClass : public ArduinoGraphics {
     RGBMatrixClass();
     virtual ~RGBMatrixClass();
 
-    void initSMCE(std::size_t frameBufferIndex) { m_key = frameBufferIndex; }
-
     int begin();
     void end();
 
@@ -47,7 +45,7 @@ class SMCE__DLL_RT_API RGBMatrixClass : public ArduinoGraphics {
     virtual void set(int x, int y, uint8_t r, uint8_t g, uint8_t b);
 
   private:
-    std::size_t m_key = 0;
+    std::size_t m_key = 1;
     uint8_t _buffer[RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT * 3];
     uint8_t _brightness;
 

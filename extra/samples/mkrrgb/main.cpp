@@ -1,6 +1,5 @@
 /*
  *  extra/stduart/main.cpp
- *  Copyright 2021 ItJustWorksTM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -56,9 +55,27 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
-    // Create the sketch, and declare that it requires the ArduinoLibrary library during preprocessing
+    // Create the sketch, and declare that it requires the ArduinoGraphics library during preprocessing
     // clang-format off
-    smce::SketchConfig sketchConfig{.fqbn = argv[1], .legacy_preproc_libs = { {"ArduinoLibrary"}}};
+    smce::SketchConfig sketchConfig{
+        .fqbn = argv[1],
+        .plugins = {smce::PluginManifest{
+            .name = "ArduinoGraphics",
+            .version = "1.0.0",
+            .uri = "https://github.com/arduino-libraries/ArduinoGraphics/archive/refs/tags/1.0.0.tar.gz",
+            .patch_uri = "file://" + (std::filesystem::current_path() /
+                                      "library_patches" / "arduino_graphics").generic_string(),
+            .defaults = smce::PluginManifest::Defaults::arduino
+        }/*,
+        smce::PluginManifest{
+            .name = "Arduino_MKRRGB",
+            .version = "1.0.0",
+            .uri = "https://github.com/arduino-libraries/Arduino_MKRRGB/archive/refs/tags/1.0.0.tar.gz",
+            .patch_uri = "file://" + (std::filesystem::current_path() /
+                                      "library_patches" / "arduino_mkrrgb").generic_string(),
+            .defaults = smce::PluginManifest::Defaults::arduino
+        }*/}
+    };
     smce::Sketch sketch(argv[2], sketchConfig);
     // // clang-format on
 
@@ -77,7 +94,7 @@ int main(int argc, char** argv) {
     board.attach_sketch(sketch);
     // clang-format off
     smce::BoardConfig board_conf{
-        .frame_buffers = { {} }
+        .frame_buffers = { {}, {} }
     };
 
     board.configure(std::move(board_conf));
@@ -92,7 +109,7 @@ int main(int argc, char** argv) {
     std::this_thread::sleep_for(1000ms);
 
     auto board_view = board.view();
-    auto fbuf = board_view.frame_buffers[0];
+    auto fbuf = board_view.frame_buffers[1];
 
     std::byte target[12 * 7 * 3]; // target
     fbuf.read_rgb888(target);
@@ -111,3 +128,8 @@ int main(int argc, char** argv) {
 
     board.stop(); // Power-off the board
 }
+
+// cmake -S . -B build
+// cd
+// cmake --build .
+// ./mkrrgb "arduino:avr:nano" sketches/smile/smile.ino
