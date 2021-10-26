@@ -16,6 +16,7 @@
  */
 
 #include <iostream>
+#include <fstream>
 #include <SMCE/BoardView.hpp>
 #include "MKRRGBMatrix.h"
 
@@ -30,11 +31,19 @@ RGBMatrixClass::RGBMatrixClass() : ArduinoGraphics(RGB_MATRIX_WIDTH, RGB_MATRIX_
 
 RGBMatrixClass::~RGBMatrixClass() {}
 
+static void log(const char *msg) {
+    std::ofstream logfile;
+    logfile.open("output.log");
+    logfile << msg;
+    logfile << std::endl;
+    logfile.close();
+}
+
 // This method must be called before any drawing can be done
 // This implementation checks and configures an SMCE frame buffer, and
 // clears the buffer, and sets the brightness to 127 (half brightness)
 int RGBMatrixClass::begin() {
-    std::cout << "RGBMatrixClass::begin" << std::endl;
+    log("RGBMatrixClass::begin()");
     const auto error = [=](const char* msg) {
         std::cerr << "ERROR: RGBMatrixClass::begin(): " << msg << std::endl;
         return 0;
@@ -44,8 +53,8 @@ int RGBMatrixClass::begin() {
 
     if (!fb.exists())
         return error("Framebuffer does not exist");
-    if (fb.direction() != smce::FrameBuffer::Direction::out)
-        return error("Framebuffer not in output mode");
+    /*if (fb.direction() != smce::FrameBuffer::Direction::out)
+        return error("Framebuffer not in output mode");*/
 
     fb.set_width(RGB_MATRIX_WIDTH);
     fb.set_height(RGB_MATRIX_HEIGHT);

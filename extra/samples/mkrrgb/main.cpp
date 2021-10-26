@@ -66,15 +66,8 @@ int main(int argc, char** argv) {
             .patch_uri = "file://" + (std::filesystem::current_path() /
                                       "library_patches" / "arduino_graphics").generic_string(),
             .defaults = smce::PluginManifest::Defaults::arduino
-        }/*,
-        smce::PluginManifest{
-            .name = "Arduino_MKRRGB",
-            .version = "1.0.0",
-            .uri = "https://github.com/arduino-libraries/Arduino_MKRRGB/archive/refs/tags/1.0.0.tar.gz",
-            .patch_uri = "file://" + (std::filesystem::current_path() /
-                                      "library_patches" / "arduino_mkrrgb").generic_string(),
-            .defaults = smce::PluginManifest::Defaults::arduino
-        }*/}
+        }
+        }
     };
     smce::Sketch sketch(argv[2], sketchConfig);
     // // clang-format on
@@ -94,6 +87,8 @@ int main(int argc, char** argv) {
     board.attach_sketch(sketch);
     // clang-format off
     smce::BoardConfig board_conf{
+        // TODO: What is the C++ syntax for doing this correctly?
+        // I want to set the direction to "out" for one of the frame buffers!
         .frame_buffers = { {}, {} }
     };
 
@@ -116,7 +111,6 @@ int main(int argc, char** argv) {
 
     for (int y = 0; y <= 6; y++) {
         for (int x = 0; x <= 11; x++) {
-            //std::cout << (int)target[(y * 12 + x) * 3] << ' ';
             if (target[(y * 12 + x) * 3] == (std::byte)0) {
                 std::cout << '-';
             } else {

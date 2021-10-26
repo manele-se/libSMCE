@@ -17,4 +17,10 @@ void setup() {
     MATRIX.endDraw();
 }
 
-void loop() {}
+// The top-left pixel (position 0,0) switches every second between red and blue
+void loop() {
+    MATRIX.set(0, 0, 255, 0, 0);
+    delay(1000);
+    MATRIX.set(0, 0, 0, 0, 255);
+    delay(1000);
+}
