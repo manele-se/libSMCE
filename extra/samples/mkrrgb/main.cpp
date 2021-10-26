@@ -86,10 +86,10 @@ int main(int argc, char** argv) {
     smce::Board board; // Create the virtual Arduino board
     board.attach_sketch(sketch);
     // clang-format off
+    smce::BoardConfig::FrameBuffer mkrrgb_fb {1, smce::BoardConfig::FrameBuffer::Direction::out};
     smce::BoardConfig board_conf{
-        // TODO: What is the C++ syntax for doing this correctly?
-        // I want to set the direction to "out" for one of the frame buffers!
-        .frame_buffers = { {}, {} }
+        // Set the direction to "out" for the frame buffers!
+        .frame_buffers = { {}, mkrrgb_fb }
     };
 
     board.configure(std::move(board_conf));
@@ -101,7 +101,8 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     };
 
-    std::this_thread::sleep_for(1000ms);
+    //wait a little
+    std::this_thread::sleep_for(50ms);
 
     auto board_view = board.view();
     auto fbuf = board_view.frame_buffers[1];
@@ -109,6 +110,7 @@ int main(int argc, char** argv) {
     std::byte target[12 * 7 * 3]; // target
     fbuf.read_rgb888(target);
 
+    //check in the frame buffer which pixel to write and write them on the command line
     for (int y = 0; y <= 6; y++) {
         for (int x = 0; x <= 11; x++) {
             if (target[(y * 12 + x) * 3] == (std::byte)0) {

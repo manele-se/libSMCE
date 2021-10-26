@@ -20,10 +20,8 @@
 
 // TODO: check how include Arduinographics.h correctly
 
-// Most of this is copied from https://github.com/arduino-libraries/Arduino_MKRRGB/blob/master/src/MKRRGBMatrix.h
-
 #include <cstddef>
-#include "ArduinoGraphics.h"
+#include <ArduinoGraphics.h>
 #include "SMCE_dll.hpp"
 
 #define RGB_MATRIX_WIDTH 12

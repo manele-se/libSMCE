@@ -238,23 +238,19 @@ void ArduinoGraphics::imageRGB24(const Image& img, int x, int y, int width, int 
 }
 
 void ArduinoGraphics::imageRGB16(const Image& img, int x, int y, int width, int height) {
-    (void)(img);
-    (void)(x);
-    (void)(y);
-    (void)(width);
-    (void)(height);
-    // TODO: Implement in some different way later
-    /*const uint16_t* data = (const uint16_t*)img.data();
+    const uint8_t* data = img.data();
 
     for (int j = 0; j < height; j++) {
-      for (int i = 0; i < width; i++) {
-        uint16_t pixel = *data++;
+        for (int i = 0; i < width; i++) {
+            uint8_t lsb = *data++;
+            uint8_t msb = *data++;
+            uint16_t pixel = (uint16_t)(msb << 8 | lsb);
 
-        set(x + i, y + j, ((pixel >> 8) & 0xf8), ((pixel >> 3) & 0xfc), (pixel << 3) & 0xf8);
-      }
+            set(x + i, y + j, ((pixel >> 8) & 0xf8), ((pixel >> 3) & 0xfc), (pixel << 3) & 0xf8);
+        }
 
-      data += (img.width() - width);
-    }*/
+        data += (img.width() - width);
+    }
 }
 
 void ArduinoGraphics::image(const Image& img, int x, int y) { image(img, x, y, img.width(), img.height()); }
