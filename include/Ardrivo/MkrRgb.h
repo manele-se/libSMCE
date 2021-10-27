@@ -22,8 +22,8 @@
 #include "SMCE_dll.hpp"
 
 #ifndef RGB_MATRIX_WIDTH
-#define RGB_MATRIX_WIDTH 12
-#define RGB_MATRIX_HEIGHT 7
+#    define RGB_MATRIX_WIDTH 12
+#    define RGB_MATRIX_HEIGHT 7
 #endif // RGB_MATRIX_WIDTH
 
 class SMCE__DLL_RT_API MkrRgb {

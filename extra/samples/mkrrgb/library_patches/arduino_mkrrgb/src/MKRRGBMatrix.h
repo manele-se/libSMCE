@@ -20,29 +20,29 @@
 #ifndef _MKR_RGB_MATRIX_H
 #define _MKR_RGB_MATRIX_H
 
-#include "../../../ArduinoGraphics/ArduinoGraphics-1.0.0/src/ArduinoGraphics.h"
 #include <MkrRgb.h>
+#include "../../../ArduinoGraphics/ArduinoGraphics-1.0.0/src/ArduinoGraphics.h"
 
-#define RGB_MATRIX_WIDTH  12
+#define RGB_MATRIX_WIDTH 12
 #define RGB_MATRIX_HEIGHT 7
 
 class RGBMatrixClass : public ArduinoGraphics {
-public:
-  RGBMatrixClass();
-  virtual ~RGBMatrixClass();
+  public:
+    RGBMatrixClass();
+    virtual ~RGBMatrixClass();
 
-  int begin();
-  void end();
+    int begin();
+    void end();
 
-  void brightness(uint8_t brightness);
+    void brightness(uint8_t brightness);
 
-  virtual void beginDraw();
-  virtual void endDraw();
+    virtual void beginDraw();
+    virtual void endDraw();
 
-  virtual void set(int x, int y, uint8_t r, uint8_t g, uint8_t b);
+    virtual void set(int x, int y, uint8_t r, uint8_t g, uint8_t b);
 
-private:
-  MkrRgb inner;
+  private:
+    MkrRgb inner;
 };
 
 extern "C" RGBMatrixClass MATRIX;

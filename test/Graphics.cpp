@@ -36,13 +36,9 @@ constexpr std::byte operator""_b(unsigned long long c) noexcept { return static_
 TEST_CASE("Arduino_MKRRGB", "[Graphics]") {
     smce::Toolchain tc{SMCE_PATH};
     REQUIRE(!tc.check_suitable_environment());
-    smce::Sketch sk{SKETCHES_PATH "mkrrgb", {
-        .fqbn = "arduino:avr:nano",
-        .plugins={
-            {"ArduinoGraphics", "1.0.1"},
-            {"Arduino_MKRRGB", "1.0.0"}
-        }
-    }};
+    smce::Sketch sk{
+        SKETCHES_PATH "mkrrgb",
+        {.fqbn = "arduino:avr:nano", .plugins = {{"ArduinoGraphics", "1.0.1"}, {"Arduino_MKRRGB", "1.0.0"}}}};
     const auto ec = tc.compile(sk);
     if (ec)
         std::cerr << tc.build_log().second;

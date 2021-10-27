@@ -109,7 +109,7 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     };
 
-    //wait a little
+    // wait a little
     std::this_thread::sleep_for(1000ms);
 
     auto board_view = board.view();
@@ -118,7 +118,7 @@ int main(int argc, char** argv) {
     std::byte target[12 * 7 * 3]; // target
     fbuf.read_rgb888(target);
 
-    //check in the frame buffer which pixel to write and write them on the command line
+    // check in the frame buffer which pixel to write and write them on the command line
     for (int y = 0; y <= 6; y++) {
         for (int x = 0; x <= 11; x++) {
             if (target[(y * 12 + x) * 3] == (std::byte)0) {
