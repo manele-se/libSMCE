@@ -1,5 +1,5 @@
 /*
- *  MKRRGB.cpp
+ *  MkrRgb.cpp
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -15,9 +15,10 @@
  *
  */
 
+#include <fstream>
 #include <iostream>
 #include <SMCE/BoardView.hpp>
-#include "MKRRGBMatrix.h"
+#include "MkrRgb.h"
 
 namespace smce {
 extern BoardView board_view;
@@ -26,16 +27,14 @@ extern void maybe_init();
 
 #define FRAME_BUFFER_FREQUENCY static_cast<std::uint8_t>(30)
 
-RGBMatrixClass::RGBMatrixClass() : ArduinoGraphics(RGB_MATRIX_WIDTH, RGB_MATRIX_HEIGHT) {}
+MkrRgb::MkrRgb() {}
 
-RGBMatrixClass::~RGBMatrixClass() {}
+MkrRgb::~MkrRgb() {}
 
 /** This method must be called before any drawing can be done
- *  This implementation takes things from two worlds:
- *   - From SMCE: Configures an SMCE frame buffer, clears the buffer
- *   - From MKRRGB: and sets the brightness to 127 (half brightness)
+ *  Configures an SMCE frame buffer, clears the buffer
  */
-int RGBMatrixClass::begin() {
+int MkrRgb::begin() {
     const auto error = [=](const char* msg) {
         std::cerr << "ERROR: RGBMatrixClass::begin(): " << msg << std::endl;
         return 0;
@@ -52,15 +51,7 @@ int RGBMatrixClass::begin() {
     fb.set_height(RGB_MATRIX_HEIGHT);
     fb.set_freq(FRAME_BUFFER_FREQUENCY);
 
-    if (!ArduinoGraphics::begin()) {
-        return error("ArduinoGraphics::begin returned FALSE");
-    }
-
-    textFont(Font_5x7);
-
     memset(_buffer, 0x00, RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT * 3);
-
-    brightness(127);
 
     return 1;
 }
@@ -68,9 +59,7 @@ int RGBMatrixClass::begin() {
 /** This method can be called after the sketch is done using the MKRRGB shield
  *  This implementation resets the SMCE frame buffer
  */
-void RGBMatrixClass::end() {
-    ArduinoGraphics::end();
-
+void MkrRgb::end() {
     auto fb = smce::board_view.frame_buffers[m_key];
 
     fb.set_width(0);
@@ -81,30 +70,25 @@ void RGBMatrixClass::end() {
 /** This method sets the brightness (allowed values: between 0 and 255)
  *  This implementation calls writeOut to update the SMCE framebuffer
  */
-void RGBMatrixClass::brightness(uint8_t brightness) {
+void MkrRgb::brightness(uint8_t brightness) {
     _brightness = brightness;
     writeOut();
 }
 
 /** This method must be called before each "block" of drawing to a screen
  */
-void RGBMatrixClass::beginDraw() {
-    ArduinoGraphics::beginDraw();
-}
+void MkrRgb::beginDraw() {}
 
 /** This method must be called after each "block" of drawing to a screen, so that
  *  the screen can update with the resulting graphics.
  *  This implementation calls writeOut to update the SMCE framebuffer
  */
-void RGBMatrixClass::endDraw() {
-    ArduinoGraphics::endDraw();
-    writeOut();
-}
+void MkrRgb::endDraw() { writeOut(); }
 
 /** This method sets one pixel in the internal buffer to a new color value.
  *  This implementation uses the _buffer variable, which has 3 bytes per pixel.
  */
-void RGBMatrixClass::set(int x, int y, uint8_t r, uint8_t g, uint8_t b) {
+void MkrRgb::set(int x, int y, uint8_t r, uint8_t g, uint8_t b) {
     if (x < 0 || x >= RGB_MATRIX_WIDTH || y < 0 || y >= RGB_MATRIX_HEIGHT)
         return;
     // Find where in memory to start writing.
@@ -118,8 +102,9 @@ void RGBMatrixClass::set(int x, int y, uint8_t r, uint8_t g, uint8_t b) {
  *  It multiplies the written pixel color values with the current
  *  brightness, and writes to the SMCE frame buffer.
  */
-void RGBMatrixClass::writeOut() {
+void MkrRgb::writeOut() {
     std::byte temp[sizeof(_buffer)];
+
     // Multiply all pixel colors with the current brightness
     for (std::size_t i = 0; i < sizeof(_buffer); i++) {
         temp[i] = (std::byte)(_buffer[i] * _brightness / 255);
@@ -129,5 +114,3 @@ void RGBMatrixClass::writeOut() {
     auto fb = smce::board_view.frame_buffers[m_key];
     fb.write_rgb888(temp);
 }
-
-SMCE__DLL_API RGBMatrixClass MATRIX;

@@ -66,6 +66,14 @@ int main(int argc, char** argv) {
             .patch_uri = "file://" + (std::filesystem::current_path() /
                                       "library_patches" / "arduino_graphics").generic_string(),
             .defaults = smce::PluginManifest::Defaults::arduino
+        },
+        smce::PluginManifest{
+            .name = "Arduino_MKRRGB",
+            .version = "1.0.0",
+            .uri = "https://github.com/arduino-libraries/Arduino_MKRRGB/archive/refs/tags/1.0.0.tar.gz",
+            .patch_uri = "file://" + (std::filesystem::current_path() /
+                                      "library_patches" / "arduino_mkrrgb").generic_string(),
+            .defaults = smce::PluginManifest::Defaults::arduino
         }
         }
     };
@@ -102,7 +110,7 @@ int main(int argc, char** argv) {
     };
 
     //wait a little
-    std::this_thread::sleep_for(50ms);
+    std::this_thread::sleep_for(1000ms);
 
     auto board_view = board.view();
     auto fbuf = board_view.frame_buffers[1];
@@ -126,6 +134,6 @@ int main(int argc, char** argv) {
 }
 
 // cmake -S . -B build
-// cd
+// cd build
 // cmake --build .
-// ./mkrrgb "arduino:avr:nano" sketches/smile/smile.ino
+// ./mkrrgb "arduino:avr:nano" ./sketches/smile/smile.ino

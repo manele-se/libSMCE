@@ -15,32 +15,31 @@
  *
  */
 
-#ifndef MKRRGBMatrix_H
-#define MKRRGBMatrix_H
-
-// TODO: check how include Arduinographics.h correctly
+#ifndef MKRRGB_H
+#define MKRRGB_H
 
 #include <cstddef>
-#include <ArduinoGraphics.h>
 #include "SMCE_dll.hpp"
 
+#ifndef RGB_MATRIX_WIDTH
 #define RGB_MATRIX_WIDTH 12
 #define RGB_MATRIX_HEIGHT 7
+#endif // RGB_MATRIX_WIDTH
 
-class SMCE__DLL_RT_API RGBMatrixClass : public ArduinoGraphics {
+class SMCE__DLL_RT_API MkrRgb {
   public:
-    RGBMatrixClass();
-    virtual ~RGBMatrixClass();
+    MkrRgb();
+    ~MkrRgb();
 
     int begin();
     void end();
 
     void brightness(uint8_t brightness);
 
-    virtual void beginDraw();
-    virtual void endDraw();
+    void beginDraw();
+    void endDraw();
 
-    virtual void set(int x, int y, uint8_t r, uint8_t g, uint8_t b);
+    void set(int x, int y, uint8_t r, uint8_t g, uint8_t b);
 
   private:
     std::size_t m_key = 1;
@@ -49,7 +48,5 @@ class SMCE__DLL_RT_API RGBMatrixClass : public ArduinoGraphics {
 
     void writeOut();
 };
-
-extern RGBMatrixClass MATRIX;
 
 #endif

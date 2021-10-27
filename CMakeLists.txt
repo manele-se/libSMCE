@@ -96,12 +96,6 @@ target_sources (Ardrivo PRIVATE
 
     include/Ardrivo/WiFi.h
     src/Ardrivo/WiFi.cpp
-
-    include/Ardrivo/ArduinoGraphics.h
-    src/Ardrivo/ArduinoGraphics.cpp
-    src/Ardrivo/Font_4x6.c
-    src/Ardrivo/Font_5x7.c
-    src/Ardrivo/Image.cpp
 )
 if (SMCE_ARDRIVO_MQTT)
   target_sources (Ardrivo PRIVATE include/Ardrivo/MQTT.h src/Ardrivo/MQTT.cpp)
@@ -111,7 +105,12 @@ if (SMCE_ARDRIVO_OV767X)
   target_sources (Ardrivo PRIVATE include/Ardrivo/OV767X.h src/Ardrivo/OV767X.cpp)
 endif ()
 if (SMCE_ARDRIVO_MKRRGB)
-  target_sources (Ardrivo PRIVATE include/Ardrivo/Arduino_MKRRGB.h include/Ardrivo/MKRRGBMatrix.h src/Ardrivo/MKRRGBMatrix.cpp)
+  target_sources (Ardrivo PRIVATE
+    include/Ardrivo/MkrRgb.h
+    src/Ardrivo/MkrRgb.cpp
+    src/Ardrivo/Font_4x6.c
+    src/Ardrivo/Font_5x7.c
+  )
 endif ()
 
 if (NOT MSVC)
