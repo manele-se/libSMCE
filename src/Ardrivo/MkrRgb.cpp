@@ -15,7 +15,7 @@
  *
  */
 
-#include <fstream>
+#include <cstring>
 #include <iostream>
 #include <SMCE/BoardView.hpp>
 #include "MkrRgb.h"
