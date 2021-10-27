@@ -34,7 +34,7 @@ constexpr std::byte operator""_b(unsigned long long c) noexcept { return static_
 // Also look in libSMCE/test/patches
 
 TEST_CASE("Arduino_MKRRGB", "[Graphics]") {
-    smce::Toolchain tc{SMCE_PATH};
+    /*smce::Toolchain tc{SMCE_PATH};
     REQUIRE(!tc.check_suitable_environment());
     smce::Sketch sk{
         SKETCHES_PATH "mkrrgb",
@@ -42,7 +42,7 @@ TEST_CASE("Arduino_MKRRGB", "[Graphics]") {
     const auto ec = tc.compile(sk);
     if (ec)
         std::cerr << tc.build_log().second;
-    REQUIRE_FALSE(ec);
+    REQUIRE_FALSE(ec);*/
 
     // TODO:
     // Start the board with one frame buffer
