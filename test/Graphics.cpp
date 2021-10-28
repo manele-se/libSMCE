@@ -34,17 +34,66 @@ constexpr std::byte operator""_b(unsigned long long c) noexcept { return static_
 // Also look in libSMCE/test/patches
 
 TEST_CASE("Arduino_MKRRGB", "[Graphics]") {
-    /*smce::Toolchain tc{SMCE_PATH};
+    smce::Toolchain tc{SMCE_PATH};
     REQUIRE(!tc.check_suitable_environment());
-    smce::Sketch sk{
-        SKETCHES_PATH "mkrrgb",
-        {.fqbn = "arduino:avr:nano", .plugins = {{"ArduinoGraphics", "1.0.1"}, {"Arduino_MKRRGB", "1.0.0"}}}};
-    const auto ec = tc.compile(sk);
+    smce::SketchConfig sketchConfig{
+        .fqbn = "arduino:avr:nano",
+        .plugins = {smce::PluginManifest{
+                        .name = "ArduinoGraphics",
+                        .version = "1.0.0",
+                        .uri = "https://github.com/arduino-libraries/ArduinoGraphics/archive/refs/tags/1.0.0.tar.gz",
+                        .patch_uri = "file://" PATCHES_PATH "arduino_graphics",
+                        .defaults = smce::PluginManifest::Defaults::arduino},
+                    smce::PluginManifest{
+                        .name = "Arduino_MKRRGB",
+                        .version = "1.0.0",
+                        .uri = "https://github.com/arduino-libraries/Arduino_MKRRGB/archive/refs/tags/1.0.0.tar.gz",
+                        .patch_uri = "file://" PATCHES_PATH "arduino_mkrrgb",
+                        .defaults = smce::PluginManifest::Defaults::arduino}}};
+    smce::Sketch sketch{SKETCHES_PATH "mkrrgb", sketchConfig};
+    const auto ec = tc.compile(sketch);
     if (ec)
         std::cerr << tc.build_log().second;
-    REQUIRE_FALSE(ec);*/
+    REQUIRE_FALSE(ec);
 
-    // TODO:
-    // Start the board with one frame buffer
-    // Wait a second, then check the pixels in the frame buffer
+    smce::Board board;
+    REQUIRE(board.attach_sketch(sketch));
+
+    smce::BoardConfig::FrameBuffer mkrrgb_fb{1, smce::BoardConfig::FrameBuffer::Direction::out};
+    smce::BoardConfig board_conf{// Set the direction to "out" for frame buffer with index 1
+                                 .frame_buffers = {{}, mkrrgb_fb}};
+
+    REQUIRE(board.configure(std::move(board_conf)));
+
+    REQUIRE(board.start());
+
+    // wait a little
+    std::this_thread::sleep_for(1000ms);
+
+    // Read pixels from frame buffer
+    auto board_view = board.view();
+    auto fbuf = board_view.frame_buffers[1];
+    REQUIRE(fbuf.exists());
+    std::array<std::byte, 12 * 7 * 3> target;
+    fbuf.read_rgb888(target);
+
+    // These pixels should be white: (0,0), (1,3), (4,5)
+    // All other pixels should be black
+
+    // clang-format off
+    constexpr std::array expected = {
+        255_b,255_b,255_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b,
+        0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b,
+        0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b,
+        0_b,0_b,0_b, 255_b,255_b,255_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b,
+        0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b,
+        0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 255_b,255_b,255_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b,
+        0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b, 0_b,0_b,0_b
+    };
+    // clang-format on
+
+    // Checking (0,0)
+    REQUIRE(target == expected);
+
+    REQUIRE(board.stop());
 }
