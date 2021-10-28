@@ -152,11 +152,18 @@ class SMCE__DLL_RT_API String {
     [[nodiscard]] bool operator>=(const String& s) const noexcept;
 
     friend SMCE__DLL_RT_API String operator+(const String&, const char*);
+    friend SMCE__DLL_RT_API String operator+(const String&, char);
     friend SMCE__DLL_RT_API String operator+(const char*, const String&);
+
+    [[nodiscard]] String& operator+=(char c) {
+        this->concat(c);
+        return *this;
+    }
 };
 
 [[nodiscard]] SMCE__DLL_RT_API String operator+(const String& lhs, const String& rhs);
 [[nodiscard]] SMCE__DLL_RT_API String operator+(const String& lhs, const char* rhs);
+[[nodiscard]] SMCE__DLL_RT_API String operator+(const String& lhs, char rhs);
 [[nodiscard]] SMCE__DLL_RT_API String operator+(const char* lhs, const String& rhs);
 
 #endif

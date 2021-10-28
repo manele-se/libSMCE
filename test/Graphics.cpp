@@ -42,7 +42,6 @@ TEST_CASE("Arduino_MKRRGB", "[Graphics]") {
                         .name = "ArduinoGraphics",
                         .version = "1.0.0",
                         .uri = "https://github.com/arduino-libraries/ArduinoGraphics/archive/refs/tags/1.0.0.tar.gz",
-                        .patch_uri = "file://" PATCHES_PATH "arduino_graphics",
                         .defaults = smce::PluginManifest::Defaults::arduino},
                     smce::PluginManifest{
                         .name = "Arduino_MKRRGB",

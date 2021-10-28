@@ -27,8 +27,10 @@ extern void maybe_init();
 
 #define FRAME_BUFFER_FREQUENCY static_cast<std::uint8_t>(30)
 
+// Constructor - called when instance is created
 MkrRgb::MkrRgb() {}
 
+// Destructor - called when instance reaches "end of life"
 MkrRgb::~MkrRgb() {}
 
 /** This method must be called before any drawing can be done
@@ -40,17 +42,21 @@ int MkrRgb::begin() {
         return 0;
     };
 
+    // Get the FrameBuffer from the BoardView
     auto fb = smce::board_view.frame_buffers[m_key];
 
+    // Check the FrameBuffer configuration
     if (!fb.exists())
         return error("Framebuffer does not exist");
     if (fb.direction() != smce::FrameBuffer::Direction::out)
         return error("Framebuffer not in output mode");
 
+    // Set the dimensions and refresh frequency of the frame buffer
     fb.set_width(RGB_MATRIX_WIDTH);
     fb.set_height(RGB_MATRIX_HEIGHT);
     fb.set_freq(FRAME_BUFFER_FREQUENCY);
 
+    // Clear all pixels (all pixels are black)
     memset(_buffer, 0x00, RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT * 3);
 
     return 1;
@@ -62,6 +68,7 @@ int MkrRgb::begin() {
 void MkrRgb::end() {
     auto fb = smce::board_view.frame_buffers[m_key];
 
+    // This implicitly tells the frame buffer to release its memory and stop working
     fb.set_width(0);
     fb.set_height(0);
     fb.set_freq(0);
