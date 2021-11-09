@@ -64,6 +64,7 @@ add_executable (SMCE_Tests
     LibManagement.cpp
     Polyfills.cpp
     Toolchain.cpp
+    String.cpp
 )
 configure_coverage (SMCE_Tests)
 target_link_libraries (SMCE_Tests PUBLIC TestUDD "${SMCE_LINK_TARGET}" Catch2::Catch2WithMain SMCE_Boost)
