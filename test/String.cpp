@@ -7,11 +7,14 @@
 #include "Ardrivo/WString.h"
 
 #include <chrono>
-#include <fstream>
 #include <future>
 #include <iostream>
 #include <catch2/catch_test_macros.hpp>
 #include "defs.hpp"
+#include "SMCE/Board.hpp"
+#include "SMCE/BoardConf.hpp"
+#include "SMCE/BoardView.hpp"
+#include "SMCE/Toolchain.hpp"
 
 
 using namespace std::literals;
@@ -38,11 +41,26 @@ TEST_CASE("number equals two", "[String]") {
 }*/
 
 TEST_CASE("indexOf", "[String]"){
-    const char *s = "Hello";
-    String testString = String::String(s);
+    smce::Toolchain tc{SMCE_PATH};
+    REQUIRE(!tc.check_suitable_environment());
+    // clang-format off
+    smce::Sketch sk{SKETCHES_PATH "str_test", {
+        .fqbn = "arduino:avr:nano",
+    }};
 
-    char character = 'H';
+    const auto ec = tc.compile(sk);
+    if (ec)
+      std::cerr << ec.message() << '\n' << tc.build_log().second << std::endl;
+    REQUIRE_FALSE(ec);
 
-    int result = testString.indexOf(character);
-    REQUIRE(result == 0);
+
+    // clang-format on
+//    const auto ec = tc.compile(sk);
+//    if (ec)
+//        std::cerr << ec.message() << '\n' << tc.build_log().second << std::endl;
+//    REQUIRE_FALSE(ec);
+    String str("Hello World");
+//    const char* character = "H";
+//    int result = 0;
+//    REQUIRE(result == 0);
 }
