@@ -23,6 +23,11 @@
 #include <MkrRgb.h>
 #include "../../../ArduinoGraphics/ArduinoGraphics-1.0.0/src/ArduinoGraphics.h"
 
+extern "C" {
+struct Font Font_4x6;
+struct Font Font_5x7;
+}
+
 #define RGB_MATRIX_WIDTH 12
 #define RGB_MATRIX_HEIGHT 7
 

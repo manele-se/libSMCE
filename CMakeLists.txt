@@ -108,8 +108,6 @@ if (SMCE_ARDRIVO_MKRRGB)
   target_sources (Ardrivo PRIVATE
     include/Ardrivo/MkrRgb.h
     src/Ardrivo/MkrRgb.cpp
-    src/Ardrivo/Font_4x6.c
-    src/Ardrivo/Font_5x7.c
   )
 endif ()
 
