@@ -116,7 +116,9 @@ class ArduinoGraphics : public Print {
     unsigned long _textScrollSpeed;
 };
 
-extern "C" struct Font Font_4x6;
-extern "C" struct Font Font_5x7;
+extern "C" {
+extern struct Font Font_4x6;
+extern struct Font Font_5x7;
+}
 
 #endif
