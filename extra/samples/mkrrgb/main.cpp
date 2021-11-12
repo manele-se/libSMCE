@@ -63,6 +63,8 @@ int main(int argc, char** argv) {
             .name = "ArduinoGraphics",
             .version = "1.0.0",
             .uri = "https://github.com/arduino-libraries/ArduinoGraphics/archive/refs/tags/1.0.0.tar.gz",
+            .patch_uri = "file://" + (std::filesystem::current_path() /
+                                      "library_patches" / "arduino_graphics").generic_string(),
             .defaults = smce::PluginManifest::Defaults::arduino
         },
         smce::PluginManifest{
