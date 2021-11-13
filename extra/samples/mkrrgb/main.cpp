@@ -70,6 +70,7 @@ int main(int argc, char** argv) {
         smce::PluginManifest{
             .name = "Arduino_MKRRGB",
             .version = "1.0.0",
+            .depends = {"ArduinoGraphics"},
             .uri = "https://github.com/arduino-libraries/Arduino_MKRRGB/archive/refs/tags/1.0.0.tar.gz",
             .patch_uri = "file://" + (std::filesystem::current_path() /
                                       "library_patches" / "arduino_mkrrgb").generic_string(),
