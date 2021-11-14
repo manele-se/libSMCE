@@ -549,10 +549,10 @@ jobs:
             codename: Rawhide
             image: fedora:rawhide
             profile: FedoraHost
-          - name: openSUSE
-            codename: Tumbleweed
-            image: opensuse/tumbleweed
-            profile: FedoraHost
+          #- name: openSUSE
+          #  codename: Tumbleweed
+          #  image: opensuse/tumbleweed
+          #  profile: FedoraHost
           - name: OpenMandriva
             codename: Lx4.2
             image: openmandriva/4.2
