@@ -25,6 +25,7 @@
 #include "Font.h"
 #include "Image.h"
 
+// clang-format off
 enum
 {
     NO_SCROLL,
@@ -33,6 +34,7 @@ enum
     SCROLL_UP,
     SCROLL_DOWN
 };
+// clang-format on
 
 class ArduinoGraphics : public Print {
   public:
