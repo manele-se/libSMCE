@@ -37,11 +37,6 @@ using namespace std::literals;
 
 namespace bp = boost::process;
 
-namespace std {
-template <>
-struct is_error_code_enum<smce::toolchain_error> : std::bool_constant<true> {};
-} // namespace std
-
 namespace smce {
 namespace detail {
 
@@ -92,7 +87,7 @@ const std::error_category& get_exec_ctx_error_category() noexcept {
 
 } // namespace detail
 
-inline std::error_code make_error_code(toolchain_error ev) {
+std::error_code make_error_code(toolchain_error ev) noexcept {
     return std::error_code{static_cast<std::underlying_type<toolchain_error>::type>(ev),
                            detail::get_exec_ctx_error_category()};
 }
@@ -271,27 +266,23 @@ std::error_code Toolchain::do_build(Sketch& sketch) noexcept {
     }
     bp::ipstream cmake_out;
     // clang-format off
-    bp::child cmake_child{
+    const int cmres = bp::system(
         m_cmake_path,
         "--version",
         bp::std_out > cmake_out
 #if BOOST_OS_WINDOWS
         , bp::windows::create_no_window
 #endif
-    };
+    );
     // clang-format on
 
-    std::string line;
-    while (cmake_child.running() && std::getline(cmake_out, line) && !line.empty()) {
-        if (!line.starts_with("cmake")) {
-            cmake_child.join();
-            return toolchain_error::cmake_unknown_output;
-        }
-        break;
-    }
-    cmake_child.join();
-    if (cmake_child.native_exit_code() != 0)
+    if (cmres != 0)
         return toolchain_error::cmake_failing;
+
+    std::string line;
+    std::getline(cmake_out, line);
+    if (!line.starts_with("cmake"))
+        return toolchain_error::cmake_unknown_output;
 
     return {};
 }
