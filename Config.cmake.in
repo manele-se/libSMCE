@@ -39,7 +39,9 @@ if (SMCE_ARDRIVO_MQTT)
   set (SMCE_OPENSSL_LINKING    "@SMCE_OPENSSL_LINKING@")
 endif ()
 set (SMCE_ARDRIVO_OV767X "@SMCE_ARDRIVO_OV767X@")
+set (SMCE_ARDRIVO_MKRRGB "@SMCE_ARDRIVO_MKRRGB@")
 
 check_required_components (SMCE)
+set (SMCE_FOUND True)
 
 include ("${CMAKE_CURRENT_LIST_DIR}/BindGen.cmake")

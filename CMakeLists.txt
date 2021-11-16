@@ -104,6 +104,12 @@ endif ()
 if (SMCE_ARDRIVO_OV767X)
   target_sources (Ardrivo PRIVATE include/Ardrivo/OV767X.h src/Ardrivo/OV767X.cpp)
 endif ()
+if (SMCE_ARDRIVO_MKRRGB)
+  target_sources (Ardrivo PRIVATE
+    include/Ardrivo/MkrRgb.h
+    src/Ardrivo/MkrRgb.cpp
+  )
+endif ()
 
 if (NOT MSVC)
   target_compile_options (Ardrivo PRIVATE "-Wall" "-Wextra" "-Wpedantic" "-Werror" "-Wcast-align")

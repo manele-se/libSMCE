@@ -61,6 +61,7 @@ add_executable (SMCE_Tests
     Board.cpp
     BoardView.cpp
     BoardDevice.cpp
+    Graphics.cpp
     LibManagement.cpp
     Polyfills.cpp
     Toolchain.cpp

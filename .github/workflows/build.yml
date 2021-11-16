@@ -163,11 +163,11 @@ jobs:
             slug: gcc
             c: gcc-10
             cxx: g++-10
-          - name: Clang/LLVM 13
-            release: true
-            slug: clang
-            c: clang-13
-            cxx: clang++-13
+          #- name: Clang/LLVM 13
+          #  release: true
+          #  slug: clang
+          #  c: clang-13
+          #  cxx: clang++-13
           - name: AppleClang 12
             release: true
             slug: appleclang
@@ -400,6 +400,7 @@ jobs:
             -DSMCE_ARDRIVO_MQTT=On \
             -DSMCE_MOSQUITTO_LINKING=SHARED \
             -DSMCE_ARDRIVO_OV767X=On \
+            -DSMCE_ARDRIVO_MKRRGB=On \
             -S ./ -B ./build
       - name: CMake build
         run: cmake --build ./build
@@ -577,10 +578,10 @@ jobs:
             codename: Rawhide
             image: fedora:rawhide
             profile: FedoraHost
-          - name: openSUSE
-            codename: Tumbleweed
-            image: opensuse/tumbleweed
-            profile: FedoraHost
+          #- name: openSUSE
+          #  codename: Tumbleweed
+          #  image: opensuse/tumbleweed
+          #  profile: FedoraHost
           - name: OpenMandriva
             codename: Lx4.2
             image: openmandriva/4.2
