@@ -34,3 +34,11 @@ TEST_CASE("Toolchain valid", "[Toolchain]") {
     REQUIRE(tc.resource_dir() == SMCE_PATH);
     REQUIRE_FALSE(tc.cmake_path().empty());
 }
+
+TEST_CASE("Toolchain invalid", "[Toolchain]") {
+    const auto path = SMCE_TEST_DIR "/epty_dir";
+    std::filesystem::create_directory(path);
+    smce::Toolchain tc{path};
+    REQUIRE(tc.check_suitable_environment());
+    REQUIRE(tc.resource_dir() == path);
+}
