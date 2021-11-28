@@ -180,6 +180,7 @@ std::size_t VirtualUartBuffer::write(std::span<const char> buf) noexcept {
     std::lock_guard lg{mut, std::adopt_lock};
     if (d.empty())
         return '\0';
+    // const unsigned char ret = d.front();
     const char ret = d.front();
     return ret;
 }

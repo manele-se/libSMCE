@@ -63,6 +63,14 @@ int Stream::peekNextDigit(LookaheadMode lookahead, bool detectDecimal) {
     }
 }
 float Stream::parseFloat(LookaheadMode lookahead, char ignore) {
+    /*
+    bool isNegative = false;
+    bool isFraction = false;
+    long value = 0;
+    float fraction = 1.0f;
+    int c = peekNextDigit(lookahead, true);
+    */
+
     bool isNegative = false;
     bool isFraction = false;
     long value = 0;
