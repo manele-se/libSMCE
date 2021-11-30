@@ -59,7 +59,9 @@ target_link_libraries (TestUDD PUBLIC "${SMCE_LINK_TARGET}")
 add_executable (SMCE_Tests
         defs.hpp
         Board.cpp
+        BoardDevice.cpp
         BoardView.cpp
+        Graphics.cpp
         LibManagement.cpp
         Polyfills.cpp
         Toolchain.cpp
