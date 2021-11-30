@@ -11,14 +11,3 @@
 
 using namespace std::literals;
 
-TEST_CASE("one equals one", "[Arduino]") {
-    const int number = 1;
-    REQUIRE(number == 1);
-}
-
-TEST_CASE("one equals one", "[Arduino]") {
-    const int number = 1;
-    REQUIRE(number == 1);
-}
-
-TEST_CASE("Analog Read", "[Arduino]") {}

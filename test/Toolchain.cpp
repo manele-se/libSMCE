@@ -35,9 +35,8 @@ TEST_CASE("Toolchain valid", "[Toolchain]") {
     REQUIRE_FALSE(tc.cmake_path().empty());
 }
 
-TEST_CASE("Toolchain invalid", "[Toolchain]") {
+TEST_CASE("Toolchain nonexistent dir", "[Toolchain]") {
     const auto path = SMCE_TEST_DIR "/epty_dir";
-    std::filesystem::create_directory(path);
     smce::Toolchain tc{path};
     REQUIRE(tc.check_suitable_environment());
     REQUIRE(tc.resource_dir() == path);
@@ -47,8 +46,8 @@ TEST_CASE("Toolchain invalid", "[Toolchain]") {
 TEST_CASE("Toolchain invalid plugin name", "[Toolchain]") {
     smce::Toolchain tc{SMCE_PATH};
     REQUIRE(!tc.check_suitable_environment());
-    smce::PluginManifest esp32awpm{
-        "ESP32/AnalogWrite",
+    smce::PluginManifest esp32aw_pm{
+        "ESP32_/AnalogWrite",
         "0.2",
         {},
         {},
@@ -102,3 +101,4 @@ TEST_CASE("Toolchain build failed", "[Toolchain]") {
     const auto ec = tc.compile(sk);
     REQUIRE(ec == smce::toolchain_error::build_failed);
 }
+

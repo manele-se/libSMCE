@@ -19,27 +19,6 @@
 
 using namespace std::literals;
 
-TEST_CASE("one equals one", "[String]") {
-    const int number = 1;
-    REQUIRE(number == 1);
-}
-
-TEST_CASE("number equals two", "[String]") {
-    const int number = 1;
-    REQUIRE(number == 2);
-}
-
-/*TEST_CASE("number equals two", "[Arduino]") {
-    const char *s = "Hello, World!";
-    std::string str(s);
-
-    const char *t = "Hello, World!";
-    std::string str1(t);
-
-    int result = str.compareTo(str1);
-    REQUIRE(result == 1);
-}*/
-
 TEST_CASE("String charAt", "[String]"){
     smce::Toolchain tc{SMCE_PATH};
     REQUIRE(!tc.check_suitable_environment());
@@ -47,7 +26,6 @@ TEST_CASE("String charAt", "[String]"){
    smce::Sketch sk{SKETCHES_PATH "str_test", {
      .fqbn = "arduino:avr:nano",
     }};
-
     const auto ec = tc.compile(sk);
     if (ec)
       std::cerr << ec.message() << '\n' << tc.build_log().second << std::endl;
