@@ -57,14 +57,15 @@ smce_bindgen_host (TestUDD "TestUDD" 1.0 "s8 f0" "u32 f1" "au16 f2" "mutex f3" "
 target_link_libraries (TestUDD PUBLIC "${SMCE_LINK_TARGET}")
 
 add_executable (SMCE_Tests
-    defs.hpp
-    Board.cpp
-    BoardView.cpp
-    BoardDevice.cpp
-    Graphics.cpp
-    LibManagement.cpp
-    Polyfills.cpp
-    Toolchain.cpp
+        defs.hpp
+        Board.cpp
+        BoardDevice.cpp
+        BoardView.cpp
+        Graphics.cpp
+        LibManagement.cpp
+        Polyfills.cpp
+        Toolchain.cpp
+        String.cpp
 )
 configure_coverage (SMCE_Tests)
 target_link_libraries (SMCE_Tests PUBLIC TestUDD "${SMCE_LINK_TARGET}" Catch2::Catch2WithMain SMCE_Boost)

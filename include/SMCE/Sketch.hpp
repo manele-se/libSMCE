@@ -19,6 +19,7 @@
 #ifndef SMCE_SKETCH_HPP
 #define SMCE_SKETCH_HPP
 
+#include <Ardrivo/WString.h>
 #include "SMCE/SMCE_fs.hpp"
 #include "SMCE/SMCE_iface.h"
 #include "SMCE/SketchConf.hpp"
@@ -47,6 +48,7 @@ class SMCE_API Sketch {
     stdfs::path m_executable;
     bool m_built = false;
     // bool m_dirty = true;
+//    String str("Hello World");
 
   public:
     explicit Sketch(stdfs::path source, SketchConfig conf) noexcept

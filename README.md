@@ -3,8 +3,7 @@ _Spiritual successor to the backend of [SMartCarEmul](https://github.com/ItJustW
 _Copyright © ItJustWorks™_
 
 ![Build](https://github.com/ItJustWorksTM/libSMCE/workflows/Build/badge.svg?branch=master)
-[![codecov](https://codecov.io/gh/ItJustWorksTM/libSMCE/branch/master/graph/badge.svg?token=0Q5P5TVW4N)](https://codecov.io/gh/ItJustWorksTM/libSMCE)
-
+[![codecov](https://codecov.io/gh/DAT265group6/libSMCE/branch/master/graph/badge.svg?token=55PLZSB1TM)](https://codecov.io/gh/DAT265group6/libSMCE)
 Status: _Actively maintained_
 
 This cross-platform C++ library provides its consumers the ability to compile and execute Arduino sketches on a hosted environment, with bindings to its virtual I/O ports to allow the host application to interact with its child sketches.
