@@ -73,3 +73,32 @@ TEST_CASE("Toolchain invalid plugin name", "[Toolchain]") {
     REQUIRE(ec == smce::toolchain_error::invalid_plugin_name);
 }
 
+// changed the url of plugin - build fail
+TEST_CASE("Toolchain build failed", "[Toolchain]") {
+    smce::Toolchain tc{SMCE_PATH};
+    REQUIRE(!tc.check_suitable_environment());
+    smce::PluginManifest esp32aw_pm{
+        "ESP32_AnalogWrite",
+        "0.2",
+        {},
+        {},
+        "https://github.com/ERROPiX/ESP32_AnalogWrite/armchive/refs/tags/0.2.zip",
+        "file://" PATCHES_PATH "ESP32_analogRewrite",
+        smce::PluginManifest::Defaults::arduino,
+        {},
+        {},
+        {},
+        {}
+    };
+
+    smce::SketchConfig skc{
+        "arduino:avr:nano",
+        {},
+        { smce::SketchConfig::ArduinoLibrary{"ESP32 AnalogWrite"} },
+        { std::move(esp32aw_pm) }
+    };
+    // clang-format on
+    smce::Sketch sk{SKETCHES_PATH "patch", std::move(skc)};
+    const auto ec = tc.compile(sk);
+    REQUIRE(ec == smce::toolchain_error::build_failed);
+}
