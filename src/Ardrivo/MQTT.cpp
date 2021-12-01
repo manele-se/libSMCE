@@ -27,7 +27,7 @@
 using Mosquitto = struct mosquitto;
 using MosquittoMessage = struct mosquitto_message;
 
-static int mosquitto_lib_init_res = []() noexcept {
+/*static int mosquitto_lib_init_res = []() noexcept {
     const int res = ::mosquitto_lib_init();
     if (res == MOSQ_ERR_SUCCESS)
         std::atexit(+[] { ::mosquitto_lib_cleanup(); });
@@ -35,7 +35,7 @@ static int mosquitto_lib_init_res = []() noexcept {
         std::fputs("Mosquitto init failed", stderr);
     return res;
 }();
-
+*/
 static void mqtt_message_callback(Mosquitto*, void* context, const MosquittoMessage* message) {
     const auto& callbacks = *reinterpret_cast<const MQTTClientCallbacks*>(context);
     // Disclaimer: I do not like this ordering at all, but we must replicate the behaviour of arduino-mqtt
