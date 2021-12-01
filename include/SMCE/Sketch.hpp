@@ -19,7 +19,6 @@
 #ifndef SMCE_SKETCH_HPP
 #define SMCE_SKETCH_HPP
 
-#include <Ardrivo/WString.h>
 #include "SMCE/SMCE_fs.hpp"
 #include "SMCE/SMCE_iface.h"
 #include "SMCE/SketchConf.hpp"

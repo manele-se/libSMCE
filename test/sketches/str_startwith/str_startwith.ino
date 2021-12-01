@@ -4,7 +4,8 @@ void setup() {
     Serial.begin(9600);
     const char * stri ="Hello World";
     String str (stri);
-    Serial.print(str.startsWith("H"));
+    if (str.startsWith("H"))
+        Serial.print('1');
 }
 
 void loop() {
