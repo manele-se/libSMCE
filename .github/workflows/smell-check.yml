@@ -1,0 +1,22 @@
+name: Code Smell Check
+on: [push, pull_request]
+jobs:
+  smell-check:
+    name: Code Smell Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: "actions/checkout@v2"
+      - name: "Install Clang"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang curl
+      - uses: "actions/setup-python@v2"
+        with:
+          python-version: 3.8
+      - name: "Install libclang"
+        run: |
+          python -m pip install libclang
+      - name: "Download code smell tool"
+        run: curl https://raw.githubusercontent.com/DAT265group6/code-smell-tool/main/sniff.py --output sniff.py
+      - name: "Detect smells"
+        run: python ./sniff.py ./src

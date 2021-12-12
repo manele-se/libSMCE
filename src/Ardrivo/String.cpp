@@ -165,4 +165,5 @@ void String::trim() {
 
 [[nodiscard]] String operator+(const String& lhs, const String& rhs) { return {lhs.m_u + rhs.m_u}; }
 [[nodiscard]] String operator+(const String& lhs, const char* rhs) { return {lhs.m_u + rhs}; }
+[[nodiscard]] String operator+(const String& lhs, char rhs) { return {lhs + String(rhs)}; }
 [[nodiscard]] String operator+(const char* lhs, const String& rhs) { return {lhs + rhs.m_u}; }

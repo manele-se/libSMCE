@@ -200,15 +200,31 @@ class SMCE_API FrameBuffer {
     /// \note Frequency is in Hz
     void set_freq(std::uint8_t) noexcept;
 
-    /// Copies a frame from an RGB888 buffer
+    /// Copies a frame from a packed buffer of pixels in the format RRRRRRRRGGGGGGGGBBBBBBBB
     bool write_rgb888(std::span<const std::byte>);
-    /// Copies a frame into an RGB888 buffer
+    /// Copies a frame into a packed buffer of pixels in the format RRRRRRRRGGGGGGGGBBBBBBBB
     bool read_rgb888(std::span<std::byte>);
-    /// Copies a frame from an RGB444 buffer
+    /// Copies a frame from a packed buffer of pixels in the format GGGGBBBB0000RRRR
     bool write_rgb444(std::span<const std::byte>);
-    /// Copies a frame into an RGB444 buffer
+    /// Copies a frame into a packed buffer of pixels in the format GGGGBBBB0000RRRR
     bool read_rgb444(std::span<std::byte>);
+
+    /// Copies a frame from an RGB565 buffer
+    bool write_rgb565(std::span<const std::byte>);
+    /// Copies a frame into an RGB565 buffer
+    bool read_rgb565(std::span<std::byte>);
+
+    bool read_yuv422(std::span<std::byte>);
+    bool write_yuv422(std::span<const std::byte>);
 };
+
+// helper function
+SMCE_API void convert_rgb444_to_rgb888(std::span<const std::byte>, std::byte*);
+SMCE_API void convert_rgb565_to_rgb888(std::span<const std::byte>, std::byte*);
+SMCE_API void convert_yuv422_to_rgb888(std::span<const std::byte>, std::byte*);
+SMCE_API void convert_rgb888_to_rgb444(const std::byte*, std::span<std::byte>);
+SMCE_API void convert_rgb888_to_rgb565(const std::byte*, std::span<std::byte>);
+SMCE_API void convert_rgb888_to_uyv422(const std::byte*, std::span<std::byte>);
 
 class SMCE_API FrameBuffers {
     friend BoardView;
@@ -230,6 +246,8 @@ class SMCE_API FrameBuffers {
 class SMCE_API BoardView {
     BoardData* m_bdat{};
 
+    friend BoardDeviceView;
+
   public:
     // clang-format off
     enum class Link {
@@ -250,6 +268,9 @@ class SMCE_API BoardView {
 
     /// Object validity check
     [[nodiscard]] bool valid() noexcept { return m_bdat; }
+
+    /// Whether or not there is an active stop request from the host
+    [[nodiscard]] bool stop_requested() noexcept;
 
     /// Obtain the path to the root file of a storage device
     [[nodiscard]] std::string_view storage_get_root(Link link, std::uint16_t accessor) noexcept;

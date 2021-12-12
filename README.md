@@ -3,8 +3,7 @@ _Spiritual successor to the backend of [SMartCarEmul](https://github.com/ItJustW
 _Copyright © ItJustWorks™_
 
 ![Build](https://github.com/ItJustWorksTM/libSMCE/workflows/Build/badge.svg?branch=master)
-[![codecov](https://codecov.io/gh/ItJustWorksTM/libSMCE/branch/master/graph/badge.svg?token=0Q5P5TVW4N)](https://codecov.io/gh/ItJustWorksTM/libSMCE)
-
+[![codecov](https://codecov.io/gh/DAT265group6/libSMCE/branch/master/graph/badge.svg?token=55PLZSB1TM)](https://codecov.io/gh/DAT265group6/libSMCE)
 Status: _Actively maintained_
 
 This cross-platform C++ library provides its consumers the ability to compile and execute Arduino sketches on a hosted environment, with bindings to its virtual I/O ports to allow the host application to interact with its child sketches.
@@ -14,9 +13,14 @@ Check our [Wiki](https://github.com/ItJustWorksTM/libSMCE/wiki) for more informa
 #### Supported I/O
 - GPIO (Arduino's `digitalRead`, `analogWrite`, etc)
 - UART (Arduino's `Serial` global)
-- SD
+- SD (writes to host's filesystem in a pre-configured root)
 - MQTT (interface of [arduino-mqtt](https://github.com/256dpi/arduino-mqtt)) - Note: cannot be monitored by host application
 - OV767X Camera (interface of [Arduino_OV767X](https://github.com/arduino-libraries/Arduino_OV767X)) - Note: available pixel formats differ
+
+#### Supported sketch languages
+- C++
+- Arduino C++ (through [`arduino-prelude`](https://github.com/ItJustWorksTM/arduino-prelude))
+- [Juniper](https://www.juniper-lang.org) (requires the Juniper compiler to be already installed)
 
 ### Build Requirements
 
@@ -59,7 +63,9 @@ cpack
 - Serve the Doxygen-generated docs
 - Making a proper [Hugo](https://gohugo.io)-generated wiki in Markdown
 - `std::error_code`ify `smce::Board`
-- Removal of the strong dependency on ArduinoCLI (preprocess ourselves)
 - Add more I/O features, in particular the ones that were in [SMartCarEmul](https://github.com/ItJustWorksTM/SmartcarEmul)
 - Add interrupts support
 - Allow consumers to specify toolchain files
+
+### First-party frontend
+See [SMCE-gd](https://github.com/ItJustWorksTM/smce-gd), designed for Arduino RC vehicles.

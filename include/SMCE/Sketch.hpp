@@ -47,6 +47,7 @@ class SMCE_API Sketch {
     stdfs::path m_executable;
     bool m_built = false;
     // bool m_dirty = true;
+//    String str("Hello World");
 
   public:
     explicit Sketch(stdfs::path source, SketchConfig conf) noexcept
