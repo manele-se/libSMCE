@@ -1,0 +1,11 @@
+name: Code Smell Check 2
+on: [push, pull_request]
+jobs:
+  smell-check:
+    name: Code Smell Check 2
+    runs-on: ubuntu-latest
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "actions/manele-code-smell-scanner@v0.1.0"
+        with:
+          source-location: src
