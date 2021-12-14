@@ -1,9 +1,25 @@
 name: Code Smell Check 2
 on: [push, pull_request]
 jobs:
-  smell-check:
-    name: Code Smell Check 2
+  smell-check-linux:
+    name: Linux
     runs-on: ubuntu-latest
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "manele-se/code-smell-tool@v0.1.1"
+        with:
+          source-location: src
+  smell-check-mac:
+    name: Mac
+    runs-on: macos-latest
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "manele-se/code-smell-tool@v0.1.1"
+        with:
+          source-location: src
+  smell-check-windows:
+    name: Windows
+    runs-on: windows-latest
     steps:
       - uses: "actions/checkout@v2"
       - uses: "manele-se/code-smell-tool@v0.1.1"
