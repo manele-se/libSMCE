@@ -43,6 +43,7 @@ int MkrRgb::begin() {
     };
 
     // Get the FrameBuffer from the BoardView
+    // auto fb = smce::board_view.frame_buffers[m_key];
     auto fb = smce::board_view.frame_buffers[m_key];
 
     // Check the FrameBuffer configuration
