@@ -38,6 +38,7 @@ std::size_t Print::write(const char* str) {
 }
 
 std::size_t Print::write(const char* buffer, size_t size) {
+    //return write(reinterpret_cast<const std::byte*>(buffer), size);
     return write(reinterpret_cast<const std::uint8_t*>(buffer), size);
 }
 
