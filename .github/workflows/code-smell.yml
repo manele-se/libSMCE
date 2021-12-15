@@ -6,25 +6,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: "actions/checkout@v2"
-      - uses: "manele-se/code-smell-tool@v0.3.3"
+      - uses: "manele-se/code-smell-tool@v0.3.7"
         with:
-          source-location: src
           github-token: ${{ secrets.GITHUB_TOKEN }}
   smell-check-mac:
     name: Mac
     runs-on: macos-latest
     steps:
       - uses: "actions/checkout@v2"
-      - uses: "manele-se/code-smell-tool@v0.3.3"
+      - uses: "manele-se/code-smell-tool@v0.3.7"
         with:
-          source-location: src
           github-token: ${{ secrets.GITHUB_TOKEN }}
   smell-check-windows:
     name: Windows
     runs-on: windows-latest
     steps:
       - uses: "actions/checkout@v2"
-      - uses: "manele-se/code-smell-tool@v0.3.3"
+      - uses: "manele-se/code-smell-tool@v0.3.7"
         with:
-          source-location: src
           github-token: ${{ secrets.GITHUB_TOKEN }}
